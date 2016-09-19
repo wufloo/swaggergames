@@ -1,0 +1,279 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "PC Games",
+        "description": "A sample page that shows list of PC games.",
+        "termsOfService": "http://pcgames.com/terms/",
+        "contact": {
+            "name": "PC Games Team",
+            "email": "pcgames@example.com",
+            "url": "http://swagger.io"
+        },
+        "license": {
+            "name": "PCG",
+            "url": "http://pcgames.com/licenses/PCG"
+        }
+    },
+    "host": "pcgames.swagger.io",
+    "basePath": "/api",
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/games": {
+            "get": {
+                "description": "Returns all games",
+                "operationId": "findGames",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "text/xml",
+                    "text/html"
+                ],
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Returns only games containing `name` in their name",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "collectionFormat": "csv"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "games response",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/game"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/errorModel"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Creates a new game in the page.",
+                "operationId": "addGame",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "game",
+                        "in": "body",
+                        "description": "Game to add to the page",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/newGame"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Game response",
+                        "schema": {
+                            "$ref": "#/definitions/game"
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/errorModel"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "game"
+                ],
+                "summary": "Update an existing game",
+                "description": "",
+                "operationId": "updateGame",
+                "consumes": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "game",
+                        "description": "Game object that needs to be changed",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/game"
+                        }
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid ID supplied"
+                    },
+                    "404": {
+                        "description": "Game not found"
+                    },
+                    "405": {
+                        "description": "Validation exception"
+                    }
+                }
+            }
+        },
+        "/games/{id}": {
+            "get": {
+                "description": "Returns a game based on a single ID",
+                "operationId": "findGameById",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "text/xml",
+                    "text/html"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of game to fetch",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Requested game in JSON",
+                        "schema": {
+                            "$ref": "#/definitions/game"
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/errorModel"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deletes a single game based on the ID supplied",
+                "operationId": "deleteGame",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of game to delete",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Game is deleted"
+                    },
+                    "default": {
+                        "description": "unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/errorModel"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "game": {
+            "type": "object",
+            "required": [
+                "id",
+                "name",
+                "description",
+                "releaseDate",
+                "genre"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "releaseDate": {
+                    "type": "integer"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "genre": {
+                    "type": "string"
+                },
+                "characters": {
+                    "type": "string"
+                }
+            }
+        },
+        "newGame": {
+            "type": "object",
+            "required": [
+                "name",
+                "description",
+                "releaseDate",
+                "genre"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "releaseDate": {
+                    "type": "integer"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "genre": {
+                    "type": "string"
+                },
+                "characters": {
+                    "type": "string"
+                }
+            }
+        },
+        "errorModel": {
+            "type": "object",
+            "required": [
+                "code",
+                "message"
+            ],
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
