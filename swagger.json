@@ -15,7 +15,7 @@
             "url": "http://pcgames.com/licenses/PCG"
         }
     },
-    "host": "localhost",
+    "host": "localhost/",
     "basePath": "/api",
     "schemes": [
         "http"
