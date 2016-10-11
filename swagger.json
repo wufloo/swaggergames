@@ -72,8 +72,9 @@
             "post": {
                 "description": "Creates a new game in the page.",
                 "operationId": "addGame",
-                
-                "consumes": "application/x-www-form-urlencoded",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
                 "parameters": [
                     {
                         "name": "game",
