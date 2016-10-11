@@ -15,8 +15,8 @@
             "url": "http://pcgames.com/licenses/PCG"
         }
     },
-    "host": "localhost:8080/Swagger",
-    "basePath": "/api",
+    "host": "localhost",
+    "basePath": "/Swagger",
     "schemes": [
         "http"
     ],
@@ -27,7 +27,7 @@
         "application/json"
     ],
     "paths": {
-        "/games": {
+        "/games/": {
             "get": {
                 "description": "Returns all games",
                 "operationId": "findGames",
@@ -40,6 +40,7 @@
                 "parameters": [
                     {
                         "name": "name",
+                        "allowMultiple": false,
                         "in": "query",
                         "description": "Returns only games containing `name` in their name",
                         "required": false,
@@ -71,9 +72,8 @@
             "post": {
                 "description": "Creates a new game in the page.",
                 "operationId": "addGame",
-                "produces": [
-                    "application/json"
-                ],
+                
+                "consumes": "application/x-www-form-urlencoded",
                 "parameters": [
                     {
                         "name": "game",
@@ -149,6 +149,7 @@
                     "text/xml",
                     "text/html"
                 ],
+                
                 "parameters": [
                     {
                         "name": "id",
