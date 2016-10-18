@@ -40,7 +40,7 @@
                 "parameters": [
                     {
                         "name": "name",
-                        "allowMultiple": false,
+                        
                         "in": "query",
                         "description": "Returns only games containing `name` in their name",
                         "required": false,
@@ -48,9 +48,10 @@
                         "items": {
                             "type": "string"
                         },
-                        "collectionFormat": "csv"
+                        "collectionFormat": "pipes"
                     }
                 ],
+                
                 "responses": {
                     "200": {
                         "description": "games response",
@@ -208,10 +209,7 @@
             "type": "object",
             "required": [
                 "id",
-                "name",
-                "description",
-                "releaseDate",
-                "genre"
+                "releaseDate"
             ],
             "properties": {
                 "id": {
@@ -222,7 +220,8 @@
                     "type": "string"
                 },
                 "releaseDate": {
-                    "type": "integer"
+                    "type": "integer",
+                    "format": "date"
                 },
                 "description": {
                     "type": "string"
@@ -248,7 +247,8 @@
                     "type": "string"
                 },
                 "releaseDate": {
-                    "type": "integer"
+                    "type": "integer",
+                    "format": "date"
                 },
                 "description": {
                     "type": "string"
